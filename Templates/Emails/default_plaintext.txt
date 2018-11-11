@@ -1,0 +1,6 @@
+﻿Hello {0},
+
+The latest {1} is attached.
+This report covers the period from {2} to {3}.
+
+- Repautomator

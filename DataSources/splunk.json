@@ -1,0 +1,10 @@
+﻿{
+  "Hostname": "localhost",
+  "Port": "8089",
+  "UseTls": "TRUE",
+  "ValidateCertificate": "FALSE",
+  "Username": "SPLUNK_USERNAME",
+  "Password": "SPLUNK_PASSWORD",
+  "MaxCount": "10000",
+  "SearchJobTtl": "21600"
+}

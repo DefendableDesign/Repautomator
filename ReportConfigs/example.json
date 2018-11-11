@@ -1,0 +1,96 @@
+﻿{
+  "Debug": "TRUE",
+
+  "ReportParameters": {
+    "ReportName": "Repautomator Example Report",
+    "ParameterFoo": "Bar"
+  },
+
+  "ReportConfiguration": {
+    "TemplateFile": "Templates\\Reports\\RepautomatorExample.docx",
+    "TableStyle": "Repautomator1"
+  },
+
+  "SearchParameters": {
+    "spiky_index": "_audit"
+  },
+
+  "Inputs": {
+    "Splunk": {
+      "Enabled": "True",
+      "ConfigurationFile": "DataSources\\splunk.json",
+      "Queries": {
+        "Examples": {
+          "IndexList": {
+            "FilePath": "QueryLibrary\\Examples\\IndexList.txt"
+          },
+          "EventSpikes": {
+            "FilePath": "QueryLibrary\\Examples\\EventSpikes.txt"
+          },
+          "AuditEventCount": {
+            "FilePath": "QueryLibrary\\Examples\\AuditEventCount.txt"
+          }
+        }
+      }
+    }
+  },
+
+  "Outputs": {
+    "File": {
+      "Enabled": "True",
+      "Directory": "CompletedReports",
+      "FileName": {
+        "Template": "{0} - {1}.docx",
+        "Values": [ "ReportParameters:ReportDateTime", "ReportParameters:ReportName" ]
+      }
+    },
+    "Email": {
+      "Enabled": "False",
+      "SmtpServer": {
+        "Host": "SMTP_SERVER",
+        "Port": "25",
+        "UseTls": "False",
+        "Credentials": {
+          "Username": "",
+          "Password": ""
+        }
+      },
+      "From": {
+        "Name": "Repautomator",
+        "Address": "repautomator@example.com"
+      },
+      "To": [
+        {
+          "Name": "Alice",
+          "Address": "alice@example.com"
+        }
+      ],
+      "Bcc": [],
+      "Templates": {
+        "Body": {
+          "PlainText": {
+            "Template": "Templates\\Emails\\default_plaintext.txt",
+            "Values": [ "Outputs:Email:To:0:Name", "ReportParameters:ReportName", "ReportParameters:EarliestTime", "ReportParameters:LatestTime" ]
+          },
+          "Html": {
+            "Template": "Templates\\Emails\\default_html.txt",
+            "Values": [ "Outputs:Email:To:0:Name", "ReportParameters:ReportName", "ReportParameters:EarliestTime", "ReportParameters:LatestTime", "Outputs:Email:Templates:Body:Html:LinkedResources:Logo:Cid" ],
+            "LinkedResources": {
+              "Logo": {
+                "FilePath": "Templates\\Emails\\Images\\logo.png"
+              }
+            }
+          }
+        },
+        "Subject": {
+          "Template": "{0} - From: {1} To: {2}",
+          "Values": [ "ReportParameters:ReportName", "ReportParameters:EarliestTime", "ReportParameters:LatestTime" ]
+        },
+        "AttachmentFileName": {
+          "Template": "{0} - {1}.docx",
+          "Values": [ "ReportParameters:ReportDateTime", "ReportParameters:ReportName" ]
+        }
+      }
+    }
+  }
+}

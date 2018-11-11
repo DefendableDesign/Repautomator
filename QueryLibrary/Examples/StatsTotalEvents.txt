@@ -1,0 +1,2 @@
+tstats count 
+| eval count = tostring(count, "commas")

@@ -1,0 +1,9 @@
+search index = $spiky_index$
+| stats count as myCount by _time
+| timechart span=2h sum(myCount) as Event_Count | fillnull
+| trendline wma7(Event_Count) as Moving_Average
+| eval Interesting_Event=if((Event_Count > 20) AND (Event_Count > 2.5 * Moving_Average), Event_Count, "")
+| eval "Date/Time" = strftime(_time, "%e/%m %H:%M")
+| where Moving_Average NOT NULL
+| rename Moving_Average as "Moving Average" | rename Event_Count as "Event Count" | rename Interesting_Event as "Event Spike"
+| fields "Date/Time" "Moving Average" "Event Count" "Event Spike" | fields - _*

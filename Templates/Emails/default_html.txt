@@ -1,0 +1,8 @@
+﻿<div style="font-family:Calibri, Arial, Helvetica, sans-serif;font-size:14px;">
+  <p>Hello {0},</p>
+  <p>The latest {1} is attached.</p>
+  <p>This report covers the period from <strong>{2}</strong> to <strong>{3}</strong>.</p>
+</div>
+<div>
+  <img src="{4}">
+</div>

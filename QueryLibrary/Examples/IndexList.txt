@@ -1,0 +1,8 @@
+| rest /services/data/indexes 
+| table title, totalEventCount, updated, homePath 
+| sort -totalEventCount, title
+| head 5
+| rename title as Title
+| rename totalEventCount as "Event Count"
+| rename updated as "Date/Time Updated"
+| rename homePath as "Index Path"

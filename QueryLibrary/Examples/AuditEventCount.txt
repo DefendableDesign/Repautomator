@@ -1,0 +1,3 @@
+search index=_audit 
+| stats count
+| eval count = tostring(count, "commas")
